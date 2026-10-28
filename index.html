@@ -59,6 +59,73 @@ footer{
     padding:20px;
     background:black;
 }
+
+ .charro-container{
+    text-align:center;
+    margin:30px 0;
+}
+
+.charro{
+    width:300px;
+    max-width:90%;
+    animation: balanceo 4s ease-in-out infinite;
+    transform-origin: center bottom;
+}
+
+@keyframes balanceo {
+    0% {
+        transform: rotate(-2deg);
+    }
+
+    50% {
+        transform: rotate(2deg);
+    }
+
+    100% {
+        transform: rotate(-2deg);
+    }
+}
+
+.charro-hablando{
+    animation: hablar 1s ease-in-out infinite;
+}
+
+@keyframes hablar {
+    0% {
+        transform: rotate(-2deg) scale(1);
+    }
+
+    25% {
+        transform: rotate(0deg) scale(1.02);
+    }
+
+    50% {
+        transform: rotate(2deg) scale(1);
+    }
+
+    75% {
+        transform: rotate(0deg) scale(1.02);
+    }
+
+    100% {
+        transform: rotate(-2deg) scale(1);
+    }
+}
+.boton{
+    background:#d4af37;
+    color:black;
+    border:none;
+    padding:12px 25px;
+    font-size:18px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-top:20px;
+    font-weight:bold;
+}
+
+.boton:hover{
+    background:#f3cb4c;
+}   
 </style>
 </head>
 
@@ -72,10 +139,18 @@ footer{
 </header>
 
 <section>
+    
+ <div class="charro-container">
 
-<img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800"
-alt="Noche oscura">
+URL_DE_TU_IMAGEN
 
+<br>
+
+<button class="boton" onclick="contarLeyenda()">
+🔊 Escuchar la leyenda
+</button>
+
+</div>   
 <div class="caja">
 <h2>¿Quién es el Charro Negro?</h2>
 
@@ -131,6 +206,38 @@ Estas historias ayudan a conservar la cultura y el folclore de México.
 Proyecto escolar: Leyenda del Charro Negro
 </footer>
 
+ <script>
+
+function contarLeyenda(){
+
+    const charro = document.getElementById("charro");
+
+    charro.classList.add("charro-hablando");
+
+    const texto = `
+    Cuenta la leyenda que hace muchos años existió un hombre ambicioso
+    que hizo un pacto para obtener riqueza y poder.
+
+    Después de su muerte, su alma quedó condenada a recorrer los caminos
+    como un misterioso charro vestido de negro.
+
+    Desde entonces, muchos viajeros aseguran haber visto su figura
+    durante las noches más oscuras.
+    `;
+
+    const voz = new SpeechSynthesisUtterance(texto);
+
+    voz.lang = "es-MX";
+    voz.rate = 0.9;
+
+    voz.onend = function(){
+        charro.classList.remove("charro-hablando");
+    };
+
+    speechSynthesis.speak(voz);
+}
+
+</script>   
 </body>
 </html>
 
